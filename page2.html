@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Things The Algorithm Knows</title>
+
+
+
+<style>
+ @font-face {
+    src: url('Nippo-Medium.otf');
+            font-family: retro;
+            
+        }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: retro;
+   cursor: url('cursor.png') 0 0, auto;
+  padding: 0;
+}
+
+:root {
+  --pink:   #ff6eb4;
+  --blue:   #4c8dff;
+  --red:    #ff4d6d;
+  --orange: #ff9a3c;
+}
+
+body {
+  
+  background-image: url('page2bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  padding: 30px 20px;
+  position: relative;
+}
+
+/* dark overlay so text is readable over any background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(2px);
+  z-index: 0;
+}
+
+/* everything sits above the overlay */
+body > * { position: relative; z-index: 1; }
+
+/* ── TITLE ── */
+
+h1 {
+  
+  font-size: clamp(22px, 4vw, 40px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  animation: floatTitle 3s ease-in-out infinite;
+  margin-bottom: 30px;
+}
+
+.subtitle {
+  font-size: clamp(13px, 2vw, 17px);
+  opacity: 0.85;
+  margin-bottom: 40px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+@keyframes floatTitle {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ── CARD GRID ── */
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  max-width: 1500px;
+}
+
+/* ── SINGLE CARD ── */
+
+.card {
+  width: 400px;
+  height: 400px;
+  perspective: 1800px;
+  cursor: pointer;
+  flex: 0 0 210px;   /* fixed size — no shrink/grow */
+}
+
+/* retro — no hover polish */
+
+/* flip wrapper */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.8s cubic-bezier(.4,0,.2,1);
+  transform-style: preserve-3d;
+}
+
+.card.flip .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* shared face styles */
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 18px;
+}
+
+/* ── FRONT FACES ── */
+
+.card-front {
+  color: white;
+ 
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* label badge on front */
+.card-front .label {
+  background: rgba(255,255,255,0.25);
+  border-radius: 50px;
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.card-front .emoji {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+/* per-card colours */
+.card:nth-child(1) .card-front {
+  background: url('card4.jpg');
+   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+.card:nth-child(2) .card-front {
+   background: url('card2.jpg');
+   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.card:nth-child(3) .card-front {
+  background: url('card5.jpg');
+   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.card:nth-child(4) .card-front {
+   background: url('card1.jpg');
+   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.card:nth-child(5) .card-front {
+   background: url('card3.jpg');
+   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ── BACK FACE ── */
+
+.card-back {
+  background: #fff;
+  transform: rotateY(180deg);
+  color: #222;
+  border: 3px solid rgba(255,255,255,0.6);
+  padding: 0;
+  overflow: hidden;
+  justify-content: flex-end;
+}
+
+.card-back img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.message {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgb(255, 255, 255);
+  color:black;
+  font-size: 15px;
+  line-height: 1.5;
+  
+  font-weight: 400;
+  text-align: center;
+  padding: 8px 10px;
+  letter-spacing: 0.3px;
+}
+
+/* accent bar at bottom of card back matches card colour */
+.card:nth-child(1) .card-back { border-color: var(--pink); }
+.card:nth-child(2) .card-back { border-color: var(--blue); }
+.card:nth-child(3) .card-back { border-color: var(--red);  }
+.card:nth-child(4) .card-back { border-color: var(--orange); }
+
+/* ── BUTTON ── */
+
+.next {
+  margin-top: 48px;
+  padding: 15px 44px;
+  background: rgb(238, 113, 238);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  
+}
+ button:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+
+/* retro toast popup */
+#hint-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  background: #0e014f;
+  border: 3px solid #ff3d6e;
+  box-shadow: 0 0 20px #ff3d6e, 0 0 40px rgba(255,61,110,0.3),
+              inset 0 0 10px rgba(0,0,0,0.5);
+  border-radius: 10px;
+  padding: 28px 36px;
+  color: white;
+  font-family: retro;
+  font-size: 15px;
+  letter-spacing: 2px;
+  line-height: 1.9;
+  text-align: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  max-width: 340px;
+}
+
+#hint-toast.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+#hint-toast .toast-title {
+  font-size: 18px;
+  color: #ffe94f;
+  text-shadow: 0 0 8px #ffe94f;
+  margin-bottom: 10px;
+  letter-spacing: 4px;
+}
+
+#hint-toast .toast-close {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 24px;
+  background: #4000ff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-family: retro;
+  font-size: 12px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #91cafd;
+}
+
+/* ── FLOATING ICONS ── */
+
+.floater {
+  position: fixed;
+  font-size: 22px;
+  animation: floatUp linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+p{
+  margin-bottom: 20px;
+}
+</style>
+</head>
+
+<body>
+<h1>Birthday Cards… remember those we used to give as kids?</h1>
+<p>Well, I thought you might enjoy a few again with a simple twist!</p>
+<p>Since you’re 23 and 2 + 3 = 5, here are 5 special cards just for you.</p>
+
+<div class="container">
+
+  <!-- CARD 1 (index 0) -->
+  <div class="card" onclick="flip(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="emoji">🎉</span>
+        Tap to reveal
+      </div>
+      <div class="card-back">
+        <img src="cute.jpeg" alt="photo 1">
+        <div class="message">
+          60% cuteness<br>
+          30% nakhre<br>
+          10% colors
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 (index 1) -->
+  <div class="card" onclick="flip(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="emoji">🤍</span>
+        Tap to reveal
+      </div>
+      <div class="card-back">
+        <img src="ready.jpeg" alt="photo 2">
+        <div class="message">
+          You probably after doing<br>
+          dadagiri on me<br>
+          🥴
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 5 — SECRET (middle, position 3 visually, not counted in index) -->
+  <div class="card" id="card5" onclick="flipSecret(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="emoji">?</span>
+        The golden card
+      </div>
+      <div class="card-back">
+        <img src="ddlj.jpeg" alt="secret">
+        <div class="message">
+          tujhe dekha to ye jana sanam<br>
+          pyar hota hai deewana sanam🎸
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3 (index 2) -->
+  <div class="card" onclick="flip(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="emoji">🎂</span>
+        Tap to reveal
+      </div>
+      <div class="card-back">
+        <img src="vrindavan.jpeg" alt="photo 3">
+        <div class="message">
+          looking cute in the<br>
+          simplest ethnic<br>
+          ✨
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 4 (index 3) — flip this one to unlock secret -->
+  <div class="card" onclick="flip(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="emoji">💙</span>
+        Tap to reveal
+      </div>
+      <div class="card-back">
+        <img src="fresher.jpeg" alt="photo 4">
+        <div class="message">
+          Still misfunctioning<br>
+          Wanna stay like this<br>
+          💫
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- retro hint popup -->
+<div id="hint-toast">
+  <div class="toast-title">You Cheeky Girl!</div>
+ A certain pattern is needed to unlock this card.<br>
+  You have to flip and unflip the other 4 cards in a particular pattern ! <br>
+  <br>
+  <button class="toast-close" onclick="closeToast()">GOT IT</button>
+</div>
+
+<button class="next" onclick="nextPage()">Final Surprise →</button>
+
+<!-- floating decorations (generated by JS) -->
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+// ── floating decorations ──
+const icons = ['💖','🎈','✨','🌸','💫','🎊'];
+icons.forEach((icon, i) => {
+  const el = document.createElement('span');
+  el.className = 'floater';
+  el.textContent = icon;
+  el.style.left = (8 + i * 15) + '%';
+  el.style.animationDuration = (7 + i * 1.3) + 's';
+  el.style.animationDelay    = (i * 1.1) + 's';
+  document.body.appendChild(el);
+});
+
+// ── flip + confetti ──
+const flipSound = new Audio('flip.mp3');
+
+// track which of the first 4 cards are flipped
+function getFlippedIndexes() {
+  const cards = document.querySelectorAll('.container .card:not(#card5)');
+  return [...cards].map((c, i) => c.classList.contains('flip') ? i : -1).filter(i => i !== -1);
+}
+
+function flip(card) {
+  card.classList.toggle('flip');
+  try { flipSound.currentTime = 0; flipSound.play(); } catch(e) {}
+
+  const colors = ['#ff6eb4','#4c8dff','#ff4d6d','#ff9a3c'];
+  const idx = [...card.parentElement.children].indexOf(card);
+  confetti({
+    particleCount: 90,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: [colors[idx] || '#ff6eb4', '#ffffff', '#ffd700']
+  });
+}
+
+// ── secret card logic ──
+function flipSecret(card) {
+  const bgMusic = document.getElementById('bgMusic');
+  const secretMusic = document.getElementById('secretMusic');
+
+  if (card.classList.contains('flip')) {
+    // flip back — restore bg music
+    card.classList.remove('flip');
+    if (secretMusic) { secretMusic.pause(); secretMusic.currentTime = 0; }
+    if (bgMusic) { bgMusic.play().catch(()=>{}); }
+    return;
+  }
+
+  const flipped = getFlippedIndexes(); // 0-based indexes of regular cards
+  // condition: ONLY index 3 (4th card) is flipped, no others
+  const onlyCard3 = flipped.length === 1 && flipped[0] === 2;
+
+  if (onlyCard3) {
+    card.classList.add('flip');
+    try { flipSound.currentTime = 0; flipSound.play(); } catch(e) {}
+    // swap music — delay so document click listener doesn't restart bgMusic
+    setTimeout(() => {
+      if (bgMusic) { bgMusic.pause(); }
+      if (secretMusic) { secretMusic.currentTime = 0; secretMusic.play().catch(()=>{}); }
+    }, 50);
+    confetti({
+      particleCount: 160,
+      spread: 100,
+      origin: { y: 0.5 },
+      colors: ['#ffe94f','#ff3d6e','#ffffff','#4000ff']
+    });
+  } else {
+    showToast();
+  }
+}
+
+function showToast() {
+  document.getElementById('hint-toast').classList.add('show');
+}
+
+function closeToast() {
+  document.getElementById('hint-toast').classList.remove('show');
+}
+
+function nextPage() {
+  window.location.href = 'page3.html';
+}
+
+
+    // ── cursor resize fix ──
+    (function() {
+      var img = new Image();
+      img.src = 'cursor.png';
+      img.onload = function() {
+        var c = document.createElement('canvas');
+        c.width = 32; c.height = 32;
+        c.getContext('2d').drawImage(img, 0, 0, 32, 32);
+        var url = c.toDataURL('image/png');
+        var s = document.createElement('style');
+        s.textContent = '* { cursor: url("' + url + '") 0 0, auto !important; }';
+        document.head.appendChild(s);
+      };
+    })();
+
+// ── music continuity ──
+window.addEventListener('load', () => {
+  const mus = document.getElementById("bgMusic");
+  if (mus) {
+    localStorage.removeItem("musicTime");
+    mus.currentTime = 0;
+    mus.play().then(() => {
+      localStorage.setItem("musicPlaying", "true");
+    }).catch(() => {
+      // autoplay blocked — fallback to click
+    });
+  }
+});
+
+document.addEventListener('click', () => {
+  const mus = document.getElementById("bgMusic");
+  const sec = document.getElementById("secretMusic");
+  if (mus && mus.paused && (!sec || sec.paused)) {
+    mus.play();
+    localStorage.setItem("musicPlaying", "true");
+  }
+});
+
+</script>
+
+<audio id="bgMusic" autoplay loop>
+  <source src="retrimusic.mp3" type="audio/mpeg">
+</audio>
+
+<!-- secret card song — replace ddljsong.mp3 with your actual filename -->
+<audio id="secretMusic">
+  <source src="Tujhe Dekha To Ye Jana Sanam.mp3" type="audio/mpeg">
+</audio>
+
+</body>
+</html>

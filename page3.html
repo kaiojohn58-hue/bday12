@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 🎉</title>
+
+<style>
+
+@font-face {
+  font-family: retro;
+  src: url('Nippo-Medium.otf');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: retro;
+  cursor: url('cursor.png') 0 0, auto;
+}
+
+body {
+  background-image: url('page3bg.jpeg');
+  
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  padding: 30px 20px 60px;
+}
+
+/* ── dark scanline overlay (retro CRT feel) ── */
+
+
+body > * { position: relative; z-index: 1; }
+
+/* ── HEADER ── */
+
+.tag {
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: #0edb57;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px #0edb57;
+}
+
+h1 {
+  font-size: 60px;
+  letter-spacing: 6px;
+  color: white;
+  right:250px;
+
+  top: 120px;
+  text-shadow:
+    0 0 10px black;
+  animation: floatTitle 2.5s ease-in-out infinite;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.name {
+  font-size: clamp(22px, 4vw, 42px);
+  letter-spacing: 5px;
+  color: #ffffff;
+  
+  text-shadow:
+    0 0 10px #000000;
+  margin-bottom: 30px;
+right:250px;
+  top: 120px;
+}
+
+@keyframes floatTitle {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ── PHOTO STRIP ── */
+
+.photo-strip {
+  display: flex;
+  top: 80px;
+  left:150px;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.photo-frame {
+  width: 140px;
+  height: 155px;
+  background: #0e014f;
+  border: 3px solid #4000ff;
+  box-shadow:
+    0 0 10px #6a5cff,
+    0 0 22px #6a5cff,
+    3px 3px 0 #ff3d6e;
+  padding: 6px 6px 28px;
+  transform: rotate(-2deg);
+  transition: transform 0.2s;
+}
+
+.photo-frame:nth-child(2) { transform: rotate(1.5deg); }
+.photo-frame:nth-child(3) { transform: rotate(-1deg); }
+.photo-frame:nth-child(4) { transform: rotate(2deg);  }
+
+.photo-frame:hover { transform: rotate(0deg) scale(1.06); }
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── MESSAGE BOX ── */
+
+.message-box {
+  width: min(640px, 92%);
+  background: #7b0a35;
+  border: 4px solid #ff3d6e;
+  box-shadow:
+    0 0 10px #ff3d6e,
+    0 0 24px #ff3d6e,
+    inset 0 0 10px rgba(0,0,0,0.5);
+  border-radius: 10px;
+  padding: 30px 28px;
+  margin-bottom: 32px;
+  font-size: clamp(14px, 2.2vw, 18px);
+  line-height: 1.9;
+  letter-spacing: 1px;
+}
+
+.message-box .line {
+  margin-bottom: 6px;
+}
+
+.message-box .highlight {
+  color: #ffe94f;
+  text-shadow: 0 0 8px #ffe94f;
+}
+
+/* ── PIXEL DIVIDER ── */
+
+.divider {
+  font-size: 20px;
+  letter-spacing: 6px;
+  color: #4000ff;
+  text-shadow: 0 0 8px #6a5cff;
+  margin: 4px 0 16px;
+}
+
+/* ── BIG BIRTHDAY TEXT ── */
+
+.big-wish {
+  font-family: retro;
+ right:250px;
+  top: 120px;
+  font-size:13px ;
+  letter-spacing: 2px;
+  color: #ffffff;
+  background-color: rgba(0,0,0,0.3);
+  padding: 20px;
+border-radius: 10px;
+  margin-bottom: 32px;
+  
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.8; }
+}
+
+/* ── RESTART BUTTON ── */
+
+.restart-btn {
+  padding: 16px 50px;
+  background: #4000ff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-family: retro;
+  font-size: 18px;
+  letter-spacing: 2px;
+  cursor: url('cursor.png') 0 0, pointer;
+  box-shadow: 3px 3px 0 #91cafd, 0 0 14px #6a5cff;
+  transition: transform 0.15s;
+}
+
+.restart-btn:hover  { transform: scale(1.05); }
+.restart-btn:active { transform: scale(0.95); box-shadow: 1px 1px 0 #91cafd; }
+
+/* ── FLOATING EMOJIS ── */
+
+.floater {
+  position: fixed;
+  font-size: 22px;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(110vh); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<h1>HAPPY BIRTHDAY</h1>
+<p class="name">🎂 SIMRAN 🎂</p>
+
+<!-- photo strip using the project's own images 
+<div class="photo-strip">
+  <div class="photo-frame"><img src="cute.jpeg"    alt=""></div>
+  <div class="photo-frame"><img src="fresher.jpeg" alt=""></div>
+  <div class="photo-frame"><img src="green.jpeg"   alt=""></div>
+  <div class="photo-frame"><img src="ready.jpeg"   alt=""></div>
+</div>
+
+
+-->
+<p class="big-wish">✦ May your year be as amazing as you are.<br> I hope you get an amazing placement soon…<br>so that you can buy me a PS5 😝. <br>From being my partner in chaos to my partner in life, <br>lucky to have you. <br>Wishing you the happiest birthday!✨✦</p>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+// ── cursor resize fix (same as index.html) ──
+(function() {
+  const img = new Image();
+  img.src = 'cursor.png';
+  img.onload = function() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 32; canvas.height = 32;
+    canvas.getContext('2d').drawImage(img, 0, 0, 32, 32);
+    const url = canvas.toDataURL('image/png');
+    const s = document.createElement('style');
+    s.textContent = `* { cursor: url("${url}") 0 0, auto !important; }`;
+    document.head.appendChild(s);
+  };
+})();
+
+// ── music (same pattern as index / page2) ──
+const music = document.getElementById("bgMusic");
+
+// ── big confetti burst on load ──
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    confetti({ particleCount: 160, spread: 100, origin: { y: 0.5 },
+      colors: ['#ff3d6e','#4000ff','#0edb57','#ffe94f','#91cafd','#ffffff'] });
+  }, 400);
+
+});
+
+// ── floating emojis ──
+const icons = ['🎂','🎉','💖','✨','🎈','⭐','🎊','💫'];
+icons.forEach((icon, i) => {
+  const el = document.createElement('span');
+  el.className = 'floater';
+  el.textContent = icon;
+  el.style.left = (4 + i * 13) + '%';
+  el.style.animationDuration = (6 + i * 1.2) + 's';
+  el.style.animationDelay    = (i * 0.9) + 's';
+  document.body.appendChild(el);
+});
+
+</script>
+
+<!-- keep music going from previous pages -->
+<audio id="bgMusic" autoplay loop>
+  <source src="bdaymusic.mp3" type="audio/mpeg">
+</audio>
+
+</body>
+</html>
